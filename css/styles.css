@@ -10936,6 +10936,14 @@ p {
   font-size: small;
 
 }
+
+@media (max-width: 768px) {
+  #mainNav .navbar-toggler {
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+  }
+}
 #mainNav .navbar-brand img {
   height: 1.5rem;
 }
