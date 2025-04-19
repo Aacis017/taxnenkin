@@ -16,6 +16,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/2.18.2/core.min.js"></script>
 
            <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
@@ -51,10 +52,94 @@
         <header class="masthead">
             <div class="container">
                 <div class="masthead-subheading">Welcome to Kuhiro Solutions!</div>
-                <div class="masthead-heading text-uppercase">We Are Pleased to Connect With You</div>
+                <div class="masthead-heading">
+                    <span class="fixed-text">We Are Pleased to</span>
+                    <span id="typed-container"><span id="typed-text"></span></span>
+                </div>
                 <a class="btn btn-primary btn-xl text-uppercase" href="#services">Explore Our Services</a>
             </div>            
         </header>
+        
+        <style>
+            .masthead {
+                text-align: center;
+                padding: 50px 20px;
+                background-color: #007bff;
+                color: white;
+            }
+        
+            .masthead-heading {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 24px;
+                white-space: nowrap;
+                width: 100%;
+            }
+        
+            .fixed-text {
+                flex: 1; /* Takes 50% width */
+                text-align: right;
+                font-weight: bold;
+                padding-right: 10px; /* Space between fixed and dynamic text */
+            }
+        
+            #typed-container {
+                flex: 1; /* Takes 50% width */
+                text-align: left;
+                min-width: 180px;
+                display: inline-block;
+                white-space: nowrap;
+            }
+        
+            @media (max-width: 768px) {
+                .masthead-heading {
+                    flex-direction: column; /* Stack on small screens */
+                    text-align: center;
+                }
+        
+                .fixed-text {
+                    text-align: center;
+                    padding-right: 0;
+                    margin-bottom: 5px;
+                    flex: none;
+                    width: 100%;
+                }
+        
+                #typed-container {
+                    text-align: center;
+                    flex: none;
+                    width: 100%;
+                }
+            }
+        </style>
+        
+        <script>
+            const typewriter = new Typewriter('#typed-text', {
+                loop: true,
+                delay: 75,
+                deleteSpeed: 50,
+            });
+        
+            typewriter
+                .typeString("Help with Taxes!")
+                .pauseFor(1500)
+                .deleteAll()
+                .typeString("Assist in Pensions!")
+                .pauseFor(1500)
+                .deleteAll()
+                .typeString("Provide Translations!")
+                .pauseFor(1500)
+                .deleteAll()
+                .typeString("Support Your Refunds!")
+                .pauseFor(1500)
+                .deleteAll()
+                .typeString("Simplify Your Paperwork!")
+                .pauseFor(1500)
+                .deleteAll()
+                .start();
+        </script>
+        
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container">
@@ -379,7 +464,6 @@
                         <a class="btn btn-dark btn-social mx-2" href="https://www.tiktok.com/@kuhiro.nenkin?_t=8nbdT9ee6Co&_r=1" aria-label="Tiktok" target="_blank"><i class="fab fa-tiktok"></i></a>
                     </div>
                     <div class="col-lg-4 text-lg-end">
-                        <h3><strong>株式会社水姫</strong></h3>
                         <h5><strong>クヒロ マート</strong></h5>
                         <p>250-0001 神奈川県小田原市扇町 3-21-1 (井細田貸事務所)</p>
                         <h5><strong>コンサルタント事務所</strong></h5>
