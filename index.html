@@ -62,57 +62,76 @@
         
         <style>
             .masthead {
-                text-align: center;
                 padding: 50px 20px;
                 background-color: #007bff;
                 color: white;
+                box-sizing: border-box;
             }
         
             .masthead-heading {
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start; /* Left align by default */
                 align-items: center;
                 font-size: 24px;
-                white-space: nowrap;
                 width: 100%;
+                max-width: 1200px;
+                margin: 0 auto; /* Center the container itself */
+                flex-wrap: wrap;
+                gap: 10px;
+                box-sizing: border-box;
             }
         
             .fixed-text {
-                flex: 1; /* Takes 50% width */
-                text-align: right;
                 font-weight: bold;
-                padding-right: 10px; /* Space between fixed and dynamic text */
+                white-space: nowrap;
+                text-align: left;
+                color: #440be5;
+                flex-shrink: 0;
             }
         
             #typed-container {
-                flex: 1; /* Takes 50% width */
-                text-align: left;
-                min-width: 180px;
-                display: inline-block;
                 white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                min-width: 0;
+                flex-grow: 1;
+                text-align: left;
+                color: #00bf60;
+                word-wrap: break-word;
             }
         
             @media (max-width: 768px) {
                 .masthead-heading {
-                    flex-direction: column; /* Stack on small screens */
-                    text-align: center;
+                    flex-direction: column; /* Stack vertically */
+                    align-items: center; /* Center align content */
+                    text-align: center; /* Center text */
+                    gap: 0px; /* Less space between elements */
+                }
+        
+                .fixed-text,
+                #typed-container {
+                    width: 100%; /* Allow full width on mobile */
+                    text-align: center; /* Center text */
+                    white-space: normal; /* Allow wrapping of text */
+                }
+        
+                .masthead {
+                    padding: 20px 15px; /* Reduce padding on mobile */
                 }
         
                 .fixed-text {
-                    text-align: center;
-                    padding-right: 0;
-                    margin-bottom: 5px;
-                    flex: none;
-                    width: 100%;
+                    font-size: 20px; /* Adjust font size on mobile */
                 }
         
                 #typed-container {
-                    text-align: center;
-                    flex: none;
-                    width: 100%;
+                    font-size: 20px; /* Adjust font size on mobile */
                 }
             }
+        
         </style>
+        
+        
+        
         
         <script>
             const typewriter = new Typewriter('#typed-text', {
