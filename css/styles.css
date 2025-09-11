@@ -11367,3 +11367,18 @@ section#contact form#contactForm :-ms-input-placeholder {
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+
+
+.calculator { 
+    background: #fff; 
+    padding: 30px; 
+    border-radius: 20px; 
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.15); 
+    width: 100%;
+}
+.calculator label { display: block; margin-top: 12px; font-weight: 600; }
+.calculator input { width: 100%; padding: 10px; margin-top: 5px; border-radius: 10px; border: 1px solid #ccc; }
+.calculator button { width: 100%; margin-top: 20px; }
+.result { margin-top: 20px; padding: 20px; background: #f1faff; border-left: 5px solid #007bff; border-radius: 12px; }
+.highlight { font-weight: bold; color: #007bff; }

@@ -192,9 +192,41 @@
                 </div>
             </div>
         </section>
-        <!-- Portfolio Grid-->
+        
+         <!-- Pension Refund Calculator Section -->
+<section class="page-section" id="calculator">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Pension Refund Calculator</h2>
+            <h3 class="section-subheading text-muted">Estimate your Shakai Hoken (Nenkin) refund instantly.</h3>
+        </div>
+
+        <!-- Form starts here -->
+        <form id="calculatorForm" class="calculator mx-auto" style="max-width: 600px;">
+            <label for="calcName">Name:</label>
+            <input type="text" id="calcName" name="calcName" placeholder="Enter your full name" required>
+
+            <label for="calcEmail">Email:</label>
+            <input type="email" id="calcEmail" name="calcEmail" placeholder="Enter your email" required>
+
+            <label for="calcPhone">Phone Number:</label>
+            <input type="text" id="calcPhone" name="calcPhone" placeholder="Enter your phone number" required>
+
+            <label for="salary">Average Monthly Salary (¥):</label>
+            <input type="number" id="salary" name="salary" placeholder="e.g. 250000">
+
+            <label for="months">Total Months Paid:</label>
+            <input type="number" id="months" name="months" placeholder="e.g. 36">
+
+            <button type="submit" class="btn btn-primary btn-xl mt-3">Calculate</button>
+
+            
+        </form>
+    </div>
+</section>
 
 
+<!-- Portfolio Grid-->
         <!-- Portfolio Grid-->
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
@@ -767,6 +799,115 @@
             });
     });
 </script>
+
+<script>
+const rates = [
+  {min: 6, max: 12, rate: 0.5},
+  {min: 12, max: 18, rate: 1.1},
+  {min: 18, max: 24, rate: 1.6},
+  {min: 24, max: 30, rate: 2.2},
+  {min: 30, max: 36, rate: 2.7},
+  {min: 36, max: 42, rate: 3.3},
+  {min: 42, max: 48, rate: 3.8},
+  {min: 48, max: 54, rate: 4.4},
+  {min: 54, max: 60, rate: 4.9},
+  {min: 60, max: 999, rate: 5.5}
+];
+
+function getRate(months) {
+  for (let r of rates) {
+    if (months >= r.min && months < r.max) return r.rate;
+  }
+  return 0;
+}
+
+(function() {
+    emailjs.init("NhYuaQegyFPYY9uh0"); // Your EmailJS User ID
+})();
+
+document.getElementById("calculatorForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Collect form data
+    let name = document.getElementById("calcName").value;
+    let email = document.getElementById("calcEmail").value;
+    let phone = document.getElementById("calcPhone").value;
+    let salary = parseFloat(document.getElementById("salary").value);
+    let months = parseInt(document.getElementById("months").value);
+    let time = new Date().toLocaleString();
+
+    if (!name || !email || !phone || !salary || !months || months < 6) {
+        Swal.fire({
+            title: "Error",
+            text: "Please fill in all fields correctly (minimum 6 months).",
+            icon: "error"
+        });
+        return;
+    }
+
+
+    // Pension calculation logic
+    let rate = getRate(months);
+    let totalRefund = salary * rate;
+    let firstRefund = totalRefund * 0.7958;
+    let taxRefund = totalRefund - firstRefund;
+    let finalAmount = totalRefund;
+
+    // Prepare data for EmailJS
+    const emailData = {
+        calcName: name,
+        calcEmail: email,
+        calcPhone: phone,
+        salary: salary,
+        time: time,
+        totalRefund: totalRefund.toFixed(2),
+        firstRefund: firstRefund.toFixed(2),
+        taxRefund: taxRefund.toFixed(2),
+        finalAmount: finalAmount.toFixed(2)
+    };
+
+    // Show loading popup
+    Swal.fire({
+        title: "Calculating...",
+        text: "Please wait while we process your data.",
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+
+    // Send email to your EmailJS
+    emailjs.send("service_5sahv3b", "template_gegrrzv", emailData)
+        .then(function(response) {
+            Swal.fire({
+                title: "Calculation Complete",
+                html: `
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Phone:</strong> ${phone}</p>
+                    <hr>
+                    <p>Total Pension Lump-sum: <span style="color:#007bff;font-weight:bold;">¥${totalRefund.toLocaleString()}</span></p>
+                    <p>First Refund (79.58%): <span style="color:#007bff;font-weight:bold;">¥${firstRefund.toLocaleString()}</span></p>
+                    <p>Tax Deduct (~20.42%): <span style="color:#007bff;font-weight:bold;">¥${taxRefund.toLocaleString()}</span></p>
+                    <p>Total Months: <span style="color:#007bff;font-weight:bold;">${months.toLocaleString()}</span></p>
+                    <p>Your Salary: <span style="color:#007bff;font-weight:bold;">¥${salary.toLocaleString()}</span></p>
+                    <p><b>Final Amount You Receive: ¥${firstRefund.toLocaleString()}</b></p>
+                `,
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+
+            document.getElementById("calculatorForm").reset();
+        }, function(error) {
+            console.error("Calculation failed:", error);
+            Swal.fire({
+                    title: "Error!",
+                    text: "Something went wrong. Please try again later.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+        });
+});
+</script>
+
 
 
 
