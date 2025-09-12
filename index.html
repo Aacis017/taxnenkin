@@ -836,15 +836,28 @@ document.getElementById("calculatorForm").addEventListener("submit", function(ev
     let months = parseInt(document.getElementById("months").value);
     let time = new Date().toLocaleString();
 
-    if (!name || !email || !phone || !salary || !months || months < 6) {
-        Swal.fire({
-            title: "Error",
-            text: "Please fill in all fields correctly (minimum 6 months).",
-            icon: "error"
-        });
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{7,15}$/;
+
+    if (!name || !email || !phone || !salary || !months) {
+        Swal.fire("Error", "Please fill in all fields.", "error");
         return;
     }
 
+    if (!emailRegex.test(email)) {
+        Swal.fire("Invalid Email", "Please enter a valid email address.", "warning");
+        return;
+    }
+
+    if (!phoneRegex.test(phone)) {
+        Swal.fire("Invalid Phone", "Please enter a valid phone number (7–15 digits).", "warning");
+        return;
+    }
+
+    if (months < 6) {
+        Swal.fire("Invalid Input", "Total months paid should be at least 6 months.", "warning");
+        return;
+    }
 
     // Pension calculation logic
     let rate = getRate(months);
@@ -890,9 +903,16 @@ document.getElementById("calculatorForm").addEventListener("submit", function(ev
                     <p>Total Months: <span style="color:#007bff;font-weight:bold;">${months.toLocaleString()}</span></p>
                     <p>Your Salary: <span style="color:#007bff;font-weight:bold;">¥${salary.toLocaleString()}</span></p>
                     <p><b>Final Amount You Receive: ¥${firstRefund.toLocaleString()}</b></p>
+                    <hr>
+                    <p style="color:green;font-weight:bold;">💡 If you apply with us we will help you to receive 100% amount.</p>
                 `,
                 icon: "success",
-                confirmButtonText: "OK"
+                    confirmButtonText: "📩 Contact us on Facebook",
+    confirmButtonColor: "#1877F2"
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.open("https://www.facebook.com/profile.php?id=61557952170266&sk=about", "_blank");
+    }
             });
 
             document.getElementById("calculatorForm").reset();
