@@ -11382,3 +11382,35 @@ section#contact form#contactForm :-ms-input-placeholder {
 .calculator button { width: 100%; margin-top: 20px; }
 .result { margin-top: 20px; padding: 20px; background: #f1faff; border-left: 5px solid #007bff; border-radius: 12px; }
 .highlight { font-weight: bold; color: #007bff; }
+
+
+.swal-custom-bg {
+  position: relative; /* enable pseudo-element positioning */
+  background-color: #fff !important; /* keep white background */
+  overflow: hidden; /* ensure image doesn't spill out */
+}
+
+.swal-custom-bg::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 70%;
+  background: url('/assets/img/logos/kuhirologo.png') no-repeat center center;
+  background-size: contain;
+  opacity: 0.2; /* transparency */
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* let user click buttons normally */
+  z-index: 0;
+}
+
+.swal-custom-bg * {
+  position: relative;
+  z-index: 1; /* keep text & buttons above logo */
+}
+
+ .highlight-text {
+    color: #38365B;  /* orange */
+    font-weight: bold;
+  }

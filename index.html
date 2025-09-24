@@ -892,29 +892,37 @@ document.getElementById("calculatorForm").addEventListener("submit", function(ev
     emailjs.send("service_5sahv3b", "template_gegrrzv", emailData)
         .then(function(response) {
             Swal.fire({
-                title: "Calculation Complete",
-                html: `
-                    <p><strong>Name:</strong> ${name}</p>
-                    <p><strong>Email:</strong> ${email}</p>
-                    <p><strong>Phone:</strong> ${phone}</p>
-                    <hr>
-                    <p>Total Pension Lump-sum: <span style="color:#007bff;font-weight:bold;">¥${totalRefund.toLocaleString()}</span></p>
-                    <p>First Refund (79.58%): <span style="color:#007bff;font-weight:bold;">¥${firstRefund.toLocaleString()}</span></p>
-                    <p>Tax Deduct (~20.42%): <span style="color:#007bff;font-weight:bold;">¥${taxRefund.toLocaleString()}</span></p>
-                    <p>Total Months: <span style="color:#007bff;font-weight:bold;">${months.toLocaleString()}</span></p>
-                    <p>Your Salary: <span style="color:#007bff;font-weight:bold;">¥${salary.toLocaleString()}</span></p>
-                    <p><b>Final Amount You Receive: ¥${firstRefund.toLocaleString()}</b></p>
-                    <hr>
-                    <p style="color:green;font-weight:bold;">💡 If you apply with us we will help you to receive 100% amount.</p>
-                `,
-                icon: "success",
-                    confirmButtonText: "📩 Contact us on Facebook",
-    confirmButtonColor: "#1877F2"
-}).then((result) => {
-    if (result.isConfirmed) {
-        window.open("https://www.facebook.com/profile.php?id=61557952170266&sk=about", "_blank");
+    title: "Calculation Complete",
+    html: `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <hr>
+        <p>Total Pension Lump-sum: <span class="highlight-text">¥${totalRefund.toLocaleString()}</span></p>
+        <p>First Refund (79.58%): <span class="highlight-text">¥${firstRefund.toLocaleString()}</span></p>
+        <p>Tax Deduct (~20.42%): <span class="highlight-text">¥${taxRefund.toLocaleString()}</span></p>
+        <p>Total Months: <span class="highlight-text">${months.toLocaleString()}</span></p>
+        <p>Your Salary: <span class="highlight-text">¥${salary.toLocaleString()}</span></p>
+        <p><b>Final Amount You Receive: <span class="highlight-text">¥${firstRefund.toLocaleString()}</b></p>
+        <hr>
+        <p style="color:green;font-weight:bold;">💡 If you apply with us we will help you to receive 100% amount.</p>
+        <br>
+        <a href="https://www.facebook.com/profile.php?id=61557952170266&sk=about" target="_blank" 
+           style="display:inline-block;background:#1877F2;color:white;padding:10px 15px;border-radius:8px;text-decoration:none;font-weight:bold;margin:5px;">
+           📩 Contact us on Facebook
+        </a>
+        <a href="https://wa.me/818074008763" target="_blank" 
+           style="display:inline-block;background:#25D366;color:white;padding:10px 15px;border-radius:8px;text-decoration:none;font-weight:bold;margin:5px;">
+           💬 Contact us on WhatsApp
+        </a>
+    `,
+    icon: "success",
+    showConfirmButton: true,  // removes default OK button
+    customClass: {
+        popup: 'swal-custom-bg' // for your logo background
     }
-            });
+});
+
 
             document.getElementById("calculatorForm").reset();
         }, function(error) {
