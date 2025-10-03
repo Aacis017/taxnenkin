@@ -811,7 +811,7 @@ const rates = [
   {min: 42, max: 48, rate: 3.8},
   {min: 48, max: 54, rate: 4.4},
   {min: 54, max: 60, rate: 4.9},
-  {min: 60, max: 999, rate: 5.5}
+  {min: 60, max: 119, rate: 5.5}
 ];
 
 function getRate(months) {
@@ -856,6 +856,10 @@ document.getElementById("calculatorForm").addEventListener("submit", function(ev
 
     if (months < 6) {
         Swal.fire("Invalid Input", "Total months paid should be at least 6 months.", "warning");
+        return;
+    }
+    if (months > 119) {
+        Swal.fire("Information", "You are eligible for old age pension so cannot apply for pension lumpsum", "info");
         return;
     }
 
